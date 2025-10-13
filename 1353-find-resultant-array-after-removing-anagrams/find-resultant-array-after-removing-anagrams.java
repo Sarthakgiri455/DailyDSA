@@ -15,7 +15,7 @@ class Solution {
             }
             else{
                 if(!Arrays.equals(tempArray, prevArray)){
-                    prevArray = tempArray.clone();
+                    prevArray = tempArray;
                     ans.add(word);
                 }
             }
