@@ -1,57 +1,36 @@
 class Solution {
     public int totalFruit(int[] fruits) {
-        int[][]array = new int[2][2];
-        for(int[] i: array) {
-            Arrays.fill(i, -1);
+      int firstElement = -1;
+      int secondElement = -1;
+      int max = 0;
+      int leftPointer = 0;
+      for(int i =0; i<fruits.length; i++) {
+        if(firstElement == -1){
+            firstElement = fruits[i];
         }
-        int max = 0;
-        int leftPointer = 0;
-        for(int j=0;j<fruits.length;j++){
-            if(array[0][0] == -1) {
-                array[0][0] = fruits[j];
-                array[0][1] = j;
-                max = 1;
+        else if(secondElement == -1){
+            if(fruits[i] != firstElement) {
+                secondElement = fruits[i];
             }
-            else if(array[1][0] == -1) {
-                
-                if(fruits[j]!=array[0][0])
-                {
-                    System.out.println("Reaching here");
-                    array[1][0] = fruits[j];
-                    array[1][1] = j;
-                }
-                else{
-                    array[0][1] = j;
-                }
-
-                
+        }
+        else{
+            if((fruits[i] == firstElement)|| (fruits[i] == secondElement)) {
+                // do nothing
             }
             else{
-                boolean found = false;
-                for(int i = 0;i<2;i++){
-
-                    if(array[i][0] == fruits[j]) {
-                        found = true;
-                        array[i][1] = j;
-                    }
+                leftPointer = i-1;
+                while(leftPointer>=0 && fruits[leftPointer]==fruits[i-1]) {
+                    leftPointer-=1;
+                    System.out.println("Decrementing leftPointer "+ leftPointer);
                 }
-                if(found == false) {
-                    array[0][0] = array[1][0];
-                    leftPointer = array[0][1] + 1;
-                    array[0][1] = array[1][1];
-                    array[1][0] = fruits[j];
-                    array[1][1] = j;
-                    
-                }
-                else{
-                    Arrays.sort(array, (a,b)->a[1]-b[1]);
-                }
+                leftPointer+=1;
+                firstElement = fruits[i-1];
+                secondElement = fruits[i];
             }
-            for(int[] i: array){
-                System.out.println(Arrays.toString(i));
-            }
-            max = Math.max(max, j-leftPointer+1);
         }
-        return max;
+        max = Math.max(max, i-leftPointer+1);
+
+      }
+      return max;
     }
 }
