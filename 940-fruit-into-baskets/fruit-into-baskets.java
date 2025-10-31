@@ -1,36 +1,28 @@
 class Solution {
     public int totalFruit(int[] fruits) {
-      int firstElement = -1;
-      int secondElement = -1;
-      int max = 0;
-      int leftPointer = 0;
-      for(int i =0; i<fruits.length; i++) {
-        if(firstElement == -1){
-            firstElement = fruits[i];
-        }
-        else if(secondElement == -1){
-            if(fruits[i] != firstElement) {
-                secondElement = fruits[i];
-            }
-        }
-        else{
-            if((fruits[i] == firstElement)|| (fruits[i] == secondElement)) {
-                // do nothing
+        int firstElement = -1;
+        int secondElement = -1;
+        int currentCount = 0;
+        int lastStreak = 0;
+        int max = 0;
+
+        for(int fruit : fruits) {
+            if((firstElement == fruit) || (secondElement ==fruit)){
+                currentCount+=1;
             }
             else{
-                leftPointer = i-1;
-                while(leftPointer>=0 && fruits[leftPointer]==fruits[i-1]) {
-                    leftPointer-=1;
-                    System.out.println("Decrementing leftPointer "+ leftPointer);
-                }
-                leftPointer+=1;
-                firstElement = fruits[i-1];
-                secondElement = fruits[i];
+                currentCount = lastStreak + 1;
             }
+            if(fruit == secondElement) {
+                lastStreak = lastStreak+1;
+            }
+            else {
+                lastStreak = 1;
+                firstElement = secondElement;
+                secondElement = fruit;
+            }
+            max = Math.max(max, currentCount);
         }
-        max = Math.max(max, i-leftPointer+1);
-
-      }
-      return max;
+        return max;
     }
 }
