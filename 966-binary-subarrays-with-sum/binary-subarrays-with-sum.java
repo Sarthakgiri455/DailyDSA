@@ -1,18 +1,27 @@
 class Solution {
     public int numSubarraysWithSum(int[] nums, int goal) {
-        int totalCount = 0;
-        int currentCount = 0;
-        HashMap<Integer, Integer>sumCount = new HashMap<>();
-        int sum = 0;
-        int ans = 0;
-        sumCount.put(0, 1);
-        for(int i=0;i<nums.length;i++) {
-            sum = sum + nums[i];
-                       
 
-            int prevSum = sumCount.getOrDefault(sum-goal, 0);
-             sumCount.put(sum, sumCount.getOrDefault(sum, 0)+1);
-            ans = ans + prevSum;
+
+     int val1 = getSubArraySumLessThanGoal(nums, goal);   
+     int val2 = getSubArraySumLessThanGoal(nums, goal-1);  
+     return  val1-val2;
+    }
+
+    private int getSubArraySumLessThanGoal(int[]nums, int goal) {
+
+        int sum = 0;
+        int left = 0;
+        int ans = 0;
+        if(goal<0){
+            return 0;
+        }
+        for(int right = 0; right<nums.length;right++) {
+            sum = sum + nums[right];
+            while(sum>goal){
+                sum = sum - nums[left];
+                left+=1;
+            }
+            ans = ans + (right-left+1);
         }
         return ans;
     }
