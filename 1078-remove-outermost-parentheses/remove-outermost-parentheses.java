@@ -3,23 +3,22 @@ class Solution {
         int starting = 0;
         int ending = 0;
         String ans = "";
-        Stack<Character>storage = new Stack<>();
+        int count = 0;
         for(int i = 0; i< s.length();i++) {
-            char x = s.charAt(i);
-            if(x == '(') {
-                if(storage.isEmpty()) {
-                    starting = i;
-                }
-                storage.push('(');
-            } 
-            else {
-                storage.pop();
-                if(storage.isEmpty()) {
-                    ending = i;
-                    ans = ans + s.substring(starting+1, ending);
+            if(s.charAt(i) == '(') {
+                count = count + 1;
+                if(count!=1){
+                    ans+= String.valueOf(s.charAt(i));
                 }
             }
-            
+            else{
+                count = count - 1;
+                if(count!=0){
+                                        ans+= String.valueOf(s.charAt(i));
+
+                }
+            }
+ 
         }
         return ans;
     }
