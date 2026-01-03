@@ -7,17 +7,24 @@ class MyStack {
     
     public void push(int x) {
         myqueue.add(x);
-        for(int i = 1; i < myqueue.size(); i++) {
-            myqueue.add(myqueue.poll());
-        }
+
     }
     
     public int pop() {
+        for(int i = 1; i < myqueue.size(); i++) {
+            myqueue.add(myqueue.poll());
+        }
         return myqueue.poll();
     }
     
     public int top() {
-        return myqueue.peek();
+        for(int i = 1; i < myqueue.size(); i++) {
+            myqueue.add(myqueue.poll());
+        }
+
+        int val =  myqueue.peek();
+        myqueue.add(myqueue.poll());
+        return val;
     }
     
     public boolean empty() {
