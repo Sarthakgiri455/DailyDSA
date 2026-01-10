@@ -1,26 +1,33 @@
 class Solution {
     public int trap(int[] height) {
-        int[]leftMax = new int[height.length];
-        int[]rightMax = new int[height.length];
-        leftMax[0] = height[0];
-        rightMax[height.length -1] = height[height.length-1];
-        for(int i = 1; i < height.length; i++) {
-            leftMax[i] = height[i];
-            rightMax[height.length-1-i] = height[height.length-1-i];
-            if(height[i] < leftMax[i-1]) {
-                leftMax[i] = leftMax[i-1];
+       int leftPointer = 0; 
+       int rightPointer = height.length - 1;
+       int lMax= 0; 
+       int rMax = 0;
+       int ans = 0;
+       while(leftPointer < rightPointer) {
+        if(height[leftPointer] <= height[rightPointer]) {
+            if(height[leftPointer] < lMax) {
+                ans = ans + (lMax - height[leftPointer]);
             }
-            if(height[height.length-1-i] < rightMax [height.length-1-i+1]) {
-                rightMax[height.length-1-i] = rightMax[height.length-1-i+1];
+            else {
+                lMax = height[leftPointer];
             }
+            leftPointer+=1;
+
         }
-        int ans = 0;
-        for(int i = 0; i < height.length; i++) {
-            int min = Math.min(leftMax[i], rightMax[i]);
-            if(min > height[i]) {
-                ans = ans + (min - height[i]);
+        else{
+
+            if(height[rightPointer] < rMax) {
+                ans = ans + (rMax - height[rightPointer]);
             }
+            else {
+                rMax = height[rightPointer];
+            }
+            rightPointer-=1;
+
         }
-        return ans;
+       }
+       return ans;
     }
 }
