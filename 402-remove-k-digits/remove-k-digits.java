@@ -14,20 +14,17 @@ class Solution {
             stack.push(current);
         }
 
-        // If k is still > 0, remove from the end
         while (k > 0 && !stack.isEmpty()) {
             stack.pop();
             k--;
         }
 
-        // Build result
         StringBuilder sb = new StringBuilder();
         while (!stack.isEmpty()) {
             sb.append(stack.pop());
         }
         sb.reverse();
 
-        // Remove leading zeros
         while (sb.length() > 0 && sb.charAt(0) == '0') {
             sb.deleteCharAt(0);
         }
