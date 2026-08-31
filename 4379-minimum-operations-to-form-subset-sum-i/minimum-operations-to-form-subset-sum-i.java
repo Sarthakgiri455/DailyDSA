@@ -15,7 +15,7 @@ class Solution {
             int cost = 0;
             while (temp > 0) {
                 if (temp <= sum) {
-                    valueToMinCost.put(temp, Math.min(valueToMinCost.getOrDefault(temp, Integer.MAX_VALUE), cost));
+                    valueToMinCost.put(temp,cost);
                 }
                 temp /= 2;
                 cost++;
@@ -29,7 +29,7 @@ class Solution {
                 long divTemp = mult;
                 int divCost = multCost;
 
-                valueToMinCost.put((int)divTemp, Math.min(valueToMinCost.getOrDefault(divTemp, Integer.MAX_VALUE), divCost));
+                valueToMinCost.put((int)divTemp, divCost);
                     
 
                 mult *= 2;
